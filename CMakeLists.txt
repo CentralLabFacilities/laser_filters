@@ -6,7 +6,7 @@ project(laser_filters)
 ##############################################################################
 
 set(THIS_PACKAGE_ROS_DEPS sensor_msgs roscpp tf filters message_filters
-  laser_geometry pluginlib angles)
+  laser_geometry pluginlib angles bayes_people_tracker)
 
 find_package(catkin REQUIRED COMPONENTS ${THIS_PACKAGE_ROS_DEPS})
 find_package(Boost REQUIRED COMPONENTS system signals)
@@ -42,6 +42,9 @@ target_link_libraries(scan_to_scan_filter_chain ${catkin_LIBRARIES} ${Boost_LIBR
 add_executable(generic_laser_filter_node src/generic_laser_filter_node.cpp)
 target_link_libraries(generic_laser_filter_node ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
+add_executable(legs_to_scan_filter_chain src/legs_to_scan_filter_chain.cpp)
+target_link_libraries(legs_to_scan_filter_chain ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 if (CATKIN_ENABLE_TESTING)
   find_package(rostest)
   add_executable(test_scan_filter_chain test/test_scan_filter_chain.cpp)
@@ -58,6 +61,7 @@ endif()
 install(TARGETS pointcloud_filters laser_scan_filters 
   scan_to_cloud_filter_chain
   scan_to_scan_filter_chain
+  legs_to_scan_filter_chain
   generic_laser_filter_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
