@@ -131,7 +131,9 @@ public:
         {
 	  for (int index = std::max<int>(i - neighbors_, 0); index <= std::min<int>(i+neighbors_, (int)scan_in.ranges.size()-1); index++)
 	    {
-	      if (scan_in.ranges[i] < scan_in.ranges[index]) // delete neighbor if they are farther away (note not self)
+	      //if (scan_in.ranges[i] < scan_in.ranges[index]) // delete neighbor if they are farther away (note not self)
+              //why not self? always leads to one lone point...
+              if (scan_in.ranges[i] <= scan_in.ranges[index])
 		indices_to_delete.insert(index);
 	    }
         }
