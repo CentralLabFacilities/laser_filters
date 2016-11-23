@@ -24,6 +24,12 @@
 	This is a filter which filters points from a laser scan that look like the veiling effect.
       </description>
     </class>
+    <class name="laser_filters/LaserScanLegFilter" type="laser_filters::LaserScanLegFilter" 
+	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
+      <description>
+	This is a filter which filters points from a laser scan that are close to detected legs.
+      </description>
+    </class>
     <class name="laser_filters/InterpolationFilter" type="laser_filters::InterpolationFilter" 
 	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
       <description>
