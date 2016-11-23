@@ -9,8 +9,8 @@
 #include <boost/thread/mutex.hpp>
 
 
-std::vector<double> distances;
-std::vector<double> angles; 
+std::vector<double> leg_distances;
+std::vector<double> leg_angles; 
 boost::mutex leg_lock;
 
 class LegsToScanFilterChain {
@@ -77,8 +77,8 @@ public:
     
     void legcallback(const bayes_people_tracker::PeopleTracker::ConstPtr& msg_in) {
         leg_lock.lock();
-        distances = msg_in->distances;
-        angles = msg_in->angles;
+        leg_distances = msg_in->distances;
+        leg_angles = msg_in->angles;
         leg_lock.unlock();
     }
 };

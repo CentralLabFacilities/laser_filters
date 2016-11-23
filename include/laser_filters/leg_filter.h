@@ -5,8 +5,8 @@
 #include <filters/filter_base.h>
 #include <sensor_msgs/LaserScan.h>
 
-extern std::vector<double> distances;
-extern std::vector<double> angles;
+extern std::vector<double> leg_distances;
+extern std::vector<double> leg_angles;
 extern boost::mutex leg_lock;
 
 namespace laser_filters {
@@ -28,8 +28,8 @@ namespace laser_filters {
                 angle_range=10;
             }
             leg_lock.lock();
-            distances_ = distances;
-            angles_ = angles;
+            distances_ = leg_distances;
+            angles_ = leg_angles;
             leg_lock.unlock();
             return true;
         }
@@ -45,8 +45,8 @@ namespace laser_filters {
                 double cut_min = ang - angle_range;
                 int start = cut_min / input_scan.angle_increment;
                 for (int i = start; i <= start + 10; ++i) {
-                    if (input_scan.ranges[i] >= distances[counter] - dist_range &&
-                            input_scan.ranges[i] <= distances[counter] + dist_range) {
+                    if (input_scan.ranges[i] >= distances_[counter] - dist_range &&
+                            input_scan.ranges[i] <= distances_[counter] + dist_range) {
                         filtered_scan.ranges[i] = std::numeric_limits<float>::quiet_NaN();
                     }
                 }

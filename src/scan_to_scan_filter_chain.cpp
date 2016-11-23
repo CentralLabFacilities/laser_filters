@@ -93,7 +93,7 @@ public:
       // Setup tf::MessageFilter generates callback
       tf_filter_->registerCallback(boost::bind(&ScanToScanFilterChain::callback, this, _1));
     }
-    else 
+    else
     {
       // Pass through if no tf_message_filter_target_frame
       scan_sub_.registerCallback(boost::bind(&ScanToScanFilterChain::callback, this, _1));
