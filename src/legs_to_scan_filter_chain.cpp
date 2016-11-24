@@ -8,10 +8,10 @@
 #include "bayes_people_tracker/PeopleTracker.h"
 #include <boost/thread/mutex.hpp>
 
-
-std::vector<double> leg_distances;
-std::vector<double> leg_angles; 
-boost::mutex leg_lock;
+#ifndef leg_glob
+#define leg_glob
+#endif
+#include "global.h" 
 
 class LegsToScanFilterChain {
     
@@ -79,6 +79,7 @@ public:
         leg_lock.lock();
         leg_distances = msg_in->distances;
         leg_angles = msg_in->angles;
+        isInit = true;
         leg_lock.unlock();
     }
 };
