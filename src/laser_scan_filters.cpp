@@ -27,7 +27,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "global.h"
 #include "laser_filters/median_filter.h"
 #include "laser_filters/array_filter.h"
 #include "laser_filters/intensity_filter.h"
@@ -41,7 +40,7 @@
 #include "laser_filters/leg_filter.h"
 #include "sensor_msgs/LaserScan.h"
 #include "filters/filter_base.h"
-
+#include "global.h"
 #include "pluginlib/class_list_macros.h"
 
 
