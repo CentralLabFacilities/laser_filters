@@ -35,6 +35,8 @@
 #include "tf/transform_listener.h"
 #include "filters/filter_chain.h"
 
+#include "global.h" 
+
 class ScanToScanFilterChain
 {
 protected:
