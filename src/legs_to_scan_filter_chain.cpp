@@ -79,6 +79,7 @@ public:
         leg_lock.lock();
         leg_distances = msg_in->distances;
         leg_angles = msg_in->angles;
+        ROS_ERROR("isInit set to true \n");
         isInit = true;
         leg_lock.unlock();
     }
