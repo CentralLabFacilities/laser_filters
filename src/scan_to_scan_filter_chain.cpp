@@ -35,6 +35,9 @@
 #include "tf/transform_listener.h"
 #include "filters/filter_chain.h"
 
+#ifndef leg_glob
+#define leg_glob
+#endif
 #include "global.h" 
 
 class ScanToScanFilterChain
