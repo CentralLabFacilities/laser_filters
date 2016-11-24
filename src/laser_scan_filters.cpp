@@ -27,6 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "global.h"
 #include "laser_filters/median_filter.h"
 #include "laser_filters/array_filter.h"
 #include "laser_filters/intensity_filter.h"
