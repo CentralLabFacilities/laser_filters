@@ -10,7 +10,7 @@ namespace laser_filters {
 
     class LaserScanLegFilter : public filters::FilterBase<sensor_msgs::LaserScan> {
     public:
-        double angle_range;
+        double angle_range; //in rad
         double dist_range;
         std::vector<double> distances_;
         std::vector<double> angles_;
@@ -18,11 +18,11 @@ namespace laser_filters {
         bool configure() {
             if (!filters::FilterBase<sensor_msgs::LaserScan>::getParam(std::string("angle_range"), angle_range)) {
                 ROS_WARN("Warning: No angle range was set. Using default.\n");
-                angle_range = 5;
+                angle_range = 5*(3.14159265358979323846/180); //convert to rad
             }
             if (!filters::FilterBase<sensor_msgs::LaserScan>::getParam(std::string("dist_range"), dist_range)) {
                 ROS_WARN("Warning: No distance range was set. Using default.\n");
-                angle_range = 10;
+                dist_range = 10;
             }
             return true;
         }
@@ -35,11 +35,11 @@ namespace laser_filters {
             if (loadLegs()) {
                 ROS_ERROR("start filtering legs \n");
                 for (int j = 0; j<angles_.size(); ++j) {
-                    double cut_min = angles[j] - angle_range;
+                    double cut_min = std::max<int>(angles_[j] - angle_range,0);
                     int start = cut_min / input_scan.angle_increment;
                     for (int i = start; i <= start + 10; ++i) {
-                        if (input_scan.ranges[i] >= distances_[i] - dist_range &&
-                                input_scan.ranges[i] <= distances_[i] + dist_range) {
+                        if (input_scan.ranges[i] >= distances_[j] - dist_range &&
+                                input_scan.ranges[i] <= distances_[j] + dist_range) {
                             filtered_scan.ranges[i] = std::numeric_limits<float>::quiet_NaN();
                         }
                     }
