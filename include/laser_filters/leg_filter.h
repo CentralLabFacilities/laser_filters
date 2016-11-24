@@ -33,7 +33,7 @@ namespace laser_filters {
         bool update(const sensor_msgs::LaserScan& input_scan, sensor_msgs::LaserScan& filtered_scan) {
             filtered_scan = input_scan;
             if (loadLegs()) {
-                ROS_ERROR("start filtering legs at angles: " + angles_ + " and distance: " + distances_ " \n");
+                ROS_ERROR("start filtering legs\n");
                 int counter = 0;
                 for (double ang : angles_) {
                     double cut_min = ang - angle_range;
