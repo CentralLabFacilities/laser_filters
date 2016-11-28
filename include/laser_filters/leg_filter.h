@@ -22,7 +22,7 @@ namespace laser_filters {
             }
             if (!filters::FilterBase<sensor_msgs::LaserScan>::getParam(std::string("dist_range"), dist_range)) {
                 ROS_WARN("Warning: No distance range was set. Using default.\n");
-                dist_range = 10;
+                dist_range = 0.1;
             }
             return true;
         }
@@ -35,9 +35,11 @@ namespace laser_filters {
             if (loadLegs()) {
                 ROS_ERROR("start filtering legs \n");
                 for (int j = 0; j<angles_.size(); ++j) {
-                    double cut_min = std::max<int>(angles_[j] - angle_range,0);
-                    int start = cut_min / input_scan.angle_increment;
-                    for (int i = start; i <= start + 10; ++i) {
+                    double angle_diff = angles_[j] - input_scan.angle_min;
+                    int steps = angle_diff / input_scan.angle_increment;
+                    steps = min(0,steps-(angle_range / input_scan.angle_increment));
+                    
+                    for (int i = steps; i <= steps + (angle_range / input_scan.angle_increment); ++i) {
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
                                 input_scan.ranges[i] <= distances_[j] + dist_range) {
                             filtered_scan.ranges[i] = std::numeric_limits<float>::quiet_NaN();

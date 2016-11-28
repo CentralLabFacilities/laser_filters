@@ -39,7 +39,7 @@ public:
 
     LegsToScanFilterChain() :
     private_nh_("~"),
-    scan_sub_(nh_, "scan_filtered", 50),
+    scan_sub_(nh_, "scan_merged", 50),
     people_sub_(nh_, "people_tracker/positions", 50), //50?
     filter_chain_("sensor_msgs::LaserScan") {
         // Configure filter chain
