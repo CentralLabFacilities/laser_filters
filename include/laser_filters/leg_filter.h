@@ -37,7 +37,7 @@ namespace laser_filters {
                 for (int j = 0; j<angles_.size(); ++j) {
                     double angle_diff = angles_[j] - input_scan.angle_min;
                     int steps = angle_diff / input_scan.angle_increment;
-                    steps = min(0,steps-(angle_range / input_scan.angle_increment));
+                    steps = std::min<int>(0,steps-(angle_range / input_scan.angle_increment));
                     
                     for (int i = steps; i <= steps + (angle_range / input_scan.angle_increment); ++i) {
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
