@@ -7,6 +7,7 @@
 #include "filters/filter_chain.h"
 #include "bayes_people_tracker/PeopleTracker.h"
 #include <boost/thread/mutex.hpp>
+#include <vector>
 
 #ifndef leg_glob
 #define leg_glob
@@ -77,8 +78,8 @@ public:
     
     void legcallback(const bayes_people_tracker::PeopleTracker::ConstPtr& msg_in) {
         leg_lock.lock();
-        leg_distances = msg_in->distances;
-        leg_angles = msg_in->angles;
+        leg_distances.assign(msg_in->distances.begin(),msg_in->distances.end());
+        leg_angles.assign(msg_in->angles.begin(),msg_in->angles.end());
         ROS_ERROR("isInit set to true \n");
         isInit = true;
         leg_lock.unlock();

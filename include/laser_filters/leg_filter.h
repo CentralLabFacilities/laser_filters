@@ -53,8 +53,8 @@ namespace laser_filters {
         bool loadLegs() {
             leg_lock.lock();
             if (isInit) {
-                distances_ = leg_distances;
-                angles_ = leg_angles;
+                distances_.assign(leg_distances.begin(),leg_distances.end());
+                angles_.assign(leg_angles.begin(),leg_angles.end());
                 leg_lock.unlock();
                 return true;
             }
