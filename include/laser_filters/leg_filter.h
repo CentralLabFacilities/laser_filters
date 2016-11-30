@@ -33,16 +33,22 @@ namespace laser_filters {
         bool update(const sensor_msgs::LaserScan& input_scan, sensor_msgs::LaserScan& filtered_scan) {
             filtered_scan = input_scan;
             if (loadLegs()) {
-                ROS_ERROR("start filtering legs \n");
+                ROS_ERROR("c \n");
                 for (int j = 0; j<angles_.size(); ++j) {
+                    ROS_ERROR("d \n");
                     double angle_diff = angles_[j] - input_scan.angle_min;
+                    ROS_ERROR("e \n");
                     int steps = angle_diff / input_scan.angle_increment;
+                    ROS_ERROR("f \n");
                     steps = std::min<int>(0,steps-(angle_range / input_scan.angle_increment));
-                    
+                    ROS_ERROR("g \n");
                     for (int i = steps; i <= steps + (angle_range / input_scan.angle_increment); ++i) {
+                        ROS_ERROR("h \n");
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
                                 input_scan.ranges[i] <= distances_[j] + dist_range) {
+                            ROS_ERROR("i \n");
                             filtered_scan.ranges[i] = std::numeric_limits<float>::quiet_NaN();
+                            ROS_ERROR("j \n");
                         }
                     }
                 }
@@ -52,12 +58,17 @@ namespace laser_filters {
 
         bool loadLegs() {
             leg_lock.lock();
+            ROS_ERROR("k \n");
             if (isInit) {
                 distances_.assign(leg_distances.begin(),leg_distances.end());
+                ROS_ERROR("l \n");
                 angles_.assign(leg_angles.begin(),leg_angles.end());
+                ROS_ERROR("m \n");
                 leg_lock.unlock();
+                ROS_ERROR("n \n");
                 return true;
             }
+            ROS_ERROR("o \n");
             leg_lock.unlock();
             return false;
         }

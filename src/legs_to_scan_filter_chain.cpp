@@ -78,7 +78,9 @@ public:
     
     void legcallback(const bayes_people_tracker::PeopleTracker::ConstPtr& msg_in) {
         leg_lock.lock();
+        ROS_ERROR("a \n");
         leg_distances.assign(msg_in->distances.begin(),msg_in->distances.end());
+        ROS_ERROR("b \n");
         leg_angles.assign(msg_in->angles.begin(),msg_in->angles.end());
         ROS_ERROR("isInit set to true \n");
         isInit = true;
