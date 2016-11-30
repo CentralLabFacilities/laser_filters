@@ -32,6 +32,8 @@ namespace laser_filters {
 
         bool update(const sensor_msgs::LaserScan& input_scan, sensor_msgs::LaserScan& filtered_scan) {
             filtered_scan = input_scan;
+            int maxIndex = input_scan.angle_max / input_scan.angle_increment;
+            ROS_ERROR("maxIndex %u \n" , maxIndex);
             if (loadLegs()) {
                 ROS_ERROR("c \n");
                 for (int j = 0; j<angles_.size(); ++j) {
@@ -42,7 +44,7 @@ namespace laser_filters {
                     ROS_ERROR("f \n");
                     steps = std::min<int>(0,steps-(angle_range / input_scan.angle_increment));
                     ROS_ERROR("g \n");
-                    for (int i = steps; i <= steps + (angle_range / input_scan.angle_increment); ++i) {
+                    for (int i = steps; i <= std::max<int>((steps + (angle_range / input_scan.angle_increment)),maxIndex-1); ++i) {
                         ROS_ERROR("h \n");
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
                                 input_scan.ranges[i] <= distances_[j] + dist_range) {
