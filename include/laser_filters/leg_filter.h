@@ -34,7 +34,8 @@ namespace laser_filters {
 
         bool update(const sensor_msgs::LaserScan& input_scan, sensor_msgs::LaserScan& filtered_scan) {
             filtered_scan = input_scan;
-            int maxIndex = input_scan.angle_max / input_scan.angle_increment;
+            int maxIndex = (input_scan.angle_max-input_scan.angle_min) / input_scan.angle_increment;
+            ROS_ERROR("no of lasers: %d \n",maxIndex);
             if (loadLegs()) {
                 for (int j = 0; j < angles_.size(); ++j) {
                     ROS_ERROR("Person detected at %f \n",angles_[j]);
