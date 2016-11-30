@@ -42,9 +42,9 @@ namespace laser_filters {
                     ROS_ERROR("e \n");
                     int steps = angle_diff / input_scan.angle_increment;
                     ROS_ERROR("f \n");
-                    steps = std::min<int>(0,steps-(angle_range / input_scan.angle_increment));
+                    steps = std::max<int>(0,steps-(angle_range / input_scan.angle_increment));
                     ROS_ERROR("g \n");
-                    for (int i = steps; i <= std::max<int>((steps + (angle_range / input_scan.angle_increment)),maxIndex-1); ++i) {
+                    for (int i = steps; i <= std::min<int>((steps + (angle_range / input_scan.angle_increment)),maxIndex-1); ++i) {
                         ROS_ERROR("h \n");
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
                                 input_scan.ranges[i] <= distances_[j] + dist_range) {
