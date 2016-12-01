@@ -39,7 +39,10 @@ namespace laser_filters {
             if (loadLegs()) {
                 for (int j = 0; j < angles_.size(); ++j) {
                     ROS_ERROR("Person detected at %f  and % f meter\n",angles_[j],distances_[j]);
-                    double angle_diff = angles_[j] - input_scan.angle_min;
+                    double angle_diff = -angles_[j] - input_scan.angle_min;
+                    //Compute angle_range based o n distance
+                    angle_range = 2*atan2(0.25,distances_[j]); 
+                    ROS_ERROR("Angle range set to %f\n",angle_range);
                     int steps = angle_diff / input_scan.angle_increment;
                     ROS_ERROR("That is the %d -th laser \n",steps);
                     int startsteps = std::max<int>(0, steps - (angle_range / input_scan.angle_increment));
