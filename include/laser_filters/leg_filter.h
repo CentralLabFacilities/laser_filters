@@ -52,7 +52,7 @@ namespace laser_filters {
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
                                 input_scan.ranges[i] <= distances_[j] + dist_range) {
                             ROS_ERROR("Deleted laser at %d \n",i);
-                            filtered_scan.ranges[i] = std::numeric_limits<float>::quiet_NaN();
+                            filtered_scan.ranges[i] = input_scan.range_max + 1.0;
                         }
                     }
                 }

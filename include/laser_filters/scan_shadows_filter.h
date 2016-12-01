@@ -133,7 +133,7 @@ public:
 	    {
 	      //if (scan_in.ranges[i] < scan_in.ranges[index]) // delete neighbor if they are farther away (note not self)
               //why not self? always leads to one lone point...
-              if (scan_in.ranges[i] <= scan_in.ranges[index])
+              if (scan_in.ranges[i] < scan_in.ranges[index])
 		indices_to_delete.insert(index);
 	    }
         }
