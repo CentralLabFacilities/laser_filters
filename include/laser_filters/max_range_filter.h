@@ -56,13 +56,16 @@ namespace laser_filters {
         bool update(const sensor_msgs::LaserScan& input_scan, sensor_msgs::LaserScan& filtered_scan) {
             filtered_scan = input_scan;
             double maxRange = input_scan.range_max;
+            ROS_ERROR("Max Range %f \n", maxRange);
             for (unsigned int i = 0;
                     i < input_scan.ranges.size();
                     i++) // Need to check ever reading in the current scan
             {
                 {
                     if (filtered_scan.ranges[i] >= maxRange) {
+                        ROS_ERROR("Range was %f \n", filtered_scan.ranges[i]);
                         filtered_scan.ranges[i] = maxRange - 0.01;
+                        ROS_ERROR("Range is %f \n", filtered_scan.ranges[i]);
                     }
                 }
             }
