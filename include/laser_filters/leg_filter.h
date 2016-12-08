@@ -72,5 +72,5 @@ namespace laser_filters {
             return false;
         }
     };
-};
+}
 #endif
