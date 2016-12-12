@@ -35,23 +35,16 @@ namespace laser_filters {
         bool update(const sensor_msgs::LaserScan& input_scan, sensor_msgs::LaserScan& filtered_scan) {
             filtered_scan = input_scan;
             int maxIndex = (input_scan.angle_max-input_scan.angle_min) / input_scan.angle_increment;
-            ROS_ERROR("no of lasers: %d \n",maxIndex);
             if (loadLegs()) {
                 for (int j = 0; j < angles_.size(); ++j) {
-                    ROS_ERROR("Person detected at %f  and % f meter\n",angles_[j],distances_[j]);
                     double angle_diff = -angles_[j] - input_scan.angle_min;
                     //Compute angle_range based o n distance
                     angle_range = 2*atan2(0.25,distances_[j]); 
-                    ROS_ERROR("Angle range set to %f\n",angle_range);
                     int steps = angle_diff / input_scan.angle_increment;
-                    ROS_ERROR("That is the %d -th laser \n",steps);
                     int startsteps = std::max<int>(0, steps - (angle_range / input_scan.angle_increment));
-                    ROS_ERROR("So we start looking at laser %d \n",startsteps);
                     for (int i = startsteps; i <= std::min<int>((steps + (angle_range / input_scan.angle_increment)), maxIndex - 1); ++i) {
-                        ROS_ERROR("%d : dist: %f",i,input_scan.ranges[i]);
                         if (input_scan.ranges[i] >= distances_[j] - dist_range &&
                                 input_scan.ranges[i] <= distances_[j] + dist_range) {
-                            ROS_ERROR("Deleted laser at %d \n",i);
                             filtered_scan.ranges[i] = input_scan.range_max + 1.0;
                         }
                     }
