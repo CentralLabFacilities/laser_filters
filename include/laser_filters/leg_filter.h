@@ -37,7 +37,7 @@ namespace laser_filters {
             int maxIndex = (input_scan.angle_max-input_scan.angle_min) / input_scan.angle_increment;
             if (loadLegs()) {
                 for (int j = 0; j < angles_.size(); ++j) {
-                    double angle_diff = -angles_[j] - input_scan.angle_min;
+                    double angle_diff = angles_[j] - input_scan.angle_min;
                     //Compute angle_range based o n distance
                     angle_range = 2*atan2(0.25,distances_[j]); 
                     int steps = angle_diff / input_scan.angle_increment;
