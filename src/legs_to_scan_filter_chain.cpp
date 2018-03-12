@@ -23,7 +23,7 @@ protected:
 
     // Components for tf::MessageFilter
     message_filters::Subscriber<sensor_msgs::LaserScan> scan_sub_;
-    message_filters::Subscriber<bayes_people_tracker::PeopleTracker> people_sub_;
+    message_filters::Subscriber<bayes_people_tracker_msgs::PeopleTracker> people_sub_;
 
     // Filter Chain
     filters::FilterChain<sensor_msgs::LaserScan> filter_chain_;
@@ -76,7 +76,7 @@ public:
         }
     }
     
-    void legcallback(const bayes_people_tracker::PeopleTracker::ConstPtr& msg_in) {
+    void legcallback(const bayes_people_tracker_msgs::PeopleTracker::ConstPtr& msg_in) {
         leg_lock.lock();
         leg_distances.assign(msg_in->distances.begin(),msg_in->distances.end());
         leg_angles.assign(msg_in->angles.begin(),msg_in->angles.end());
