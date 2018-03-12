@@ -5,7 +5,7 @@
 #include "tf/message_filter.h"
 #include "tf/transform_listener.h"
 #include "filters/filter_chain.h"
-#include "bayes_people_tracker/PeopleTracker.h"
+#include "bayes_people_tracker_msgs/PeopleTracker.h"
 #include <boost/thread/mutex.hpp>
 #include <vector>
 
